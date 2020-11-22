@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/todayWeatherFragment"
+        android:icon="@drawable/ic_today_24"
+        android:title="@string/today"
+        />
+    <!-- TODO: find icon for forecast-->
+    <item
+        android:id="@+id/forecastWeatherFragment"
+        android:icon="@drawable/ic_forecast_24"
+        android:title="@string/forecast" />
+</menu>

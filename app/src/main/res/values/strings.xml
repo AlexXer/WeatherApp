@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="today">Today</string>
+    <string name="forecast">Forecast</string>
+    <string name="API_KEY">89397e33eaecc4a607d8e7436c770ba8</string>
+</resources>
