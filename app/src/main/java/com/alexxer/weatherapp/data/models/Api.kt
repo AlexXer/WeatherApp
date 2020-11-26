@@ -10,13 +10,12 @@ import retrofit2.http.Query
 
 interface Api {
 
-    //    fun getCurrentWeather(@Path("lat") lat: Double, @Path("lon") lon: Double, @Path("API key") ApiKey:String):Response<Weather>
-//@GET("weather?lat={lat}&lon={lon}&appid={API key}&units=metric")
+
     @GET("weather")
     fun getCurrentWeather(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
-        @Query("appid") apiKey: String,
+        @Query("appid") apiKey: String = API_KEY,
         @Query("units") unit: String = "metric"
     ): Single<JsonObject>
 
@@ -25,7 +24,11 @@ interface Api {
     fun getForecastWeather(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
-        @Query("appid") apiKey: String,
+        @Query("appid") apiKey: String = API_KEY,
         @Query("units") unit: String = "metric"
     ): Single<JsonObject>
+
+    companion object {
+        private const val API_KEY = "89397e33eaecc4a607d8e7436c770ba8"
+    }
 }
