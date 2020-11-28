@@ -12,15 +12,12 @@ import com.alexxer.weatherapp.data.models.RemoteWeatherModel
 
 class ForecastWeatherFragment : Fragment() {
 
-    private lateinit var complex: ComplexWeatherModel
+    private lateinit var complexWeatherModel: ComplexWeatherModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        complex = ComplexWeatherModel(CachedWeatherModel(requireContext()), RemoteWeatherModel())
-        complex
-            .getForecastWeather(37.421998333333335, -122.08400000000002)
-            .subscribe()
+//
         return inflater.inflate(R.layout.fragment_forecast_weather, container, false)
     }
 

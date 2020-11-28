@@ -32,7 +32,9 @@ class RemoteWeatherModel : WeatherModel {
             val description =
                 it.asJsonObject.get("weather").asJsonArray.get(0).asJsonObject.get("main").asString
             val dateTime = it.asJsonObject.get("dt_txt").asString
-            val forecast = Forecast(dateTime, description, temperature)
+            val iconId =
+                json.get("weather")?.asJsonArray?.get(0)?.asJsonObject?.get("icon")?.asString
+            val forecast = Forecast(dateTime, description, temperature,iconId)
             forecasts.add(forecast)
         }
         return forecasts
@@ -43,6 +45,8 @@ class RemoteWeatherModel : WeatherModel {
         val city = json.get("name")?.asString
         val description =
             json.get("weather")?.asJsonArray?.get(0)?.asJsonObject?.get("main")?.asString
+        val iconId =
+            json.get("weather")?.asJsonArray?.get(0)?.asJsonObject?.get("icon")?.asString
         val windSpeed = json.get("wind")?.asJsonObject?.get("speed")?.asDouble
         val windDirection = json.get("wind")?.asJsonObject?.get("deg")?.asDouble
         val pressure = json.get("main")?.asJsonObject?.get("pressure")?.asDouble
@@ -59,7 +63,8 @@ class RemoteWeatherModel : WeatherModel {
                 pressure,
                 windSpeed,
                 windDirection,
-                precipitation
+                precipitation,
+                iconId
             )
         return weather
     }
