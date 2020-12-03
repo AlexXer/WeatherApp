@@ -9,5 +9,5 @@ interface TodayWeatherView {
     fun updateWindDirectionsTextView(windDirection: String)
     fun updateLocationTextView(location: String)
     fun updatePrecipitationTextView(precipitation: String)
-//  fun updateInfo(strings:string)
+
 }

@@ -19,10 +19,10 @@ class TodayWeatherPresenter(context: Context, private val todayWeatherView: Toda
     private fun onWeatherUpdate(weather: Weather?) {
         currentWeather = weather
         todayWeatherView.updateTemperatureAndWeatherTextView(formatTemperatureAndWeather(currentWeather))
-        todayWeatherView.updateWeatherImageView(R.drawable.ic_wind_dir_24)
+        todayWeatherView.updateWeatherImageView(getIcon(weather?.iconId))
         todayWeatherView.updateHumidityTextView(formatHumidity(currentWeather))
         todayWeatherView.updatePressureTextView(formatPressure(currentWeather))
-        todayWeatherView.updateWindDirectionsTextView(convertWindSpeed(currentWeather))
+        todayWeatherView.updateWindDirectionsTextView(convertWindDirection(currentWeather))
         todayWeatherView.updateWindSpeedTextView(formatWindSpeed(currentWeather))
         todayWeatherView.updateLocationTextView(formatLocation(currentWeather))
         todayWeatherView.updatePrecipitationTextView(formatPrecipitation(currentWeather))
@@ -34,11 +34,11 @@ class TodayWeatherPresenter(context: Context, private val todayWeatherView: Toda
     }
 
     fun requestShare(): String {
-
-        return currentWeather.toString()
-        //Внутри метод  красивого вывода погоды
-        //провеерка на анал
-
+        return "Today weather in ${currentWeather?.town}, ${currentWeather?.country} " +
+                "Temperature is ${currentWeather?.temperature?.toInt()} °C." +
+                "Pressure is ${formatPressure(currentWeather)}" +
+                "Wind: speed - ${formatWindSpeed(currentWeather)}, direction - ${convertWindDirection(currentWeather)} " +
+                "Have a nice day :)"
     }
 
 
@@ -58,7 +58,7 @@ class TodayWeatherPresenter(context: Context, private val todayWeatherView: Toda
         return "${weather?.windSpeed?.toInt() ?: "No data"} km/h"
     }
 
-    private fun convertWindSpeed(weather: Weather?): String {
+    private fun convertWindDirection(weather: Weather?): String {
         return when (weather?.windDirection!!) {
             in 0.0..45.0 -> "N"
             in 45.0..90.0 -> "NE"
@@ -73,20 +73,30 @@ class TodayWeatherPresenter(context: Context, private val todayWeatherView: Toda
     }
 
 
-    fun formatPrecipitation(weather: Weather?):String{
+    private fun formatPrecipitation(weather: Weather?):String{
         return if (weather?.precipitation != null){
-            "${weather?.precipitation} mm"
+            "${weather.precipitation} mm"
         }else{
             "No data"
         }
     }
 
 
-//    private fun selectWeatherImage(iconId:String): Int{
-//        when(currentWeather?.iconId){
-//
-//        }
-//    }
-
-
+    private fun getIcon(id: String?): Int {
+        return when (id) {
+            "01d" -> R.drawable.ic_sun
+            "01n" -> R.drawable.ic_moon
+            "02d" -> R.drawable.ic_clouds_and_sun
+            "02n" -> R.drawable.ic_cloudy_night
+            "03d", "03n" -> R.drawable.ic_cloudy
+            "04d", "04n" -> R.drawable.ic_broken_clouds
+            "09d", "09n" -> R.drawable.ic_heavy_rain
+            "10d" -> R.drawable.ic_day_rain
+            "10n" -> R.drawable.ic_night_rain
+            "11d","11n" -> R.drawable.ic_thunderstorm
+            "12d","12n" -> R.drawable.ic_snowflake
+            "50d","50n" -> R.drawable.ic_mist
+            else -> R.mipmap.launcher_icon
+        }
+    }
 }

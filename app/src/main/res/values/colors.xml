@@ -8,4 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFEB3B</color>
+    <color name="grey">#606060</color>
+    <color name="crop_color">#3F51B5</color>
+    <color name="moon_color">#FFEB3B</color>
+    <color name="sun_color">#FFC107</color>
+    <color name="snowflake_color">#00BCD4</color>
 </resources>
