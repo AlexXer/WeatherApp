@@ -1,15 +1,12 @@
-package com.alexxer.weatherapp.data.models
+package com.alexxer.weatherapp.data.model.retrofit
 
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitInstance {
-
     private const val BASE_URL = "http://api.openweathermap.org/data/2.5/"
-
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -17,8 +14,5 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
-    val api: Api by lazy {
-        retrofit.create(Api::class.java)
-    }
+    val api: Api by lazy { retrofit.create(Api::class.java) }
 }

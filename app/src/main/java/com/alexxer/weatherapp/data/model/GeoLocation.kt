@@ -1,4 +1,4 @@
-package com.alexxer.weatherapp
+package com.alexxer.weatherapp.data.model
 
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -6,7 +6,6 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 data class GeoLocation(val latitude: Double, val longitude: Double) {
-
     fun distanceTo(other: GeoLocation): Double {
         return distance(latitude, longitude, other.latitude, other.longitude)
     }

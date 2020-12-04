@@ -1,30 +1,18 @@
-package com.alexxer.weatherapp
+package com.alexxer.weatherapp.screen.forecast
 
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.alexxer.weatherapp.data.models.Forecast
-import com.alexxer.weatherapp.data.models.ForecastDayView
-import com.alexxer.weatherapp.data.models.ForecastWeatherItemView
-import com.alexxer.weatherapp.data.models.ForecastWeatherView
+import com.alexxer.weatherapp.App
+import com.alexxer.weatherapp.R
+import com.alexxer.weatherapp.data.model.Forecast
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeFormatter.ofPattern
 import java.util.*
 import kotlin.collections.ArrayList
 
 class ForecastWeatherPresenter(context: Context, private val forecastWeatherView: ForecastWeatherView) {
     private var forecastDateWeather: List<Any> = listOf()
-
-    init {
-        val coolWeatherModel = CoolWeatherModel(context)
-
-        coolWeatherModel
-            .getForecastUpdate()
-            .subscribe({ onForecastUpdate(it) }) { it.printStackTrace() }
-        coolWeatherModel.setLocation(GeoLocation(35.0, 139.0))//0.1 0.1
-    }
+    private val coolWeatherModel = (context.applicationContext as App).coolWeatherModel
 
     private fun onForecastUpdate(forecasts: List<Forecast>) {
         forecastDateWeather = formatForecasts(forecasts)
@@ -47,12 +35,10 @@ class ForecastWeatherPresenter(context: Context, private val forecastWeatherView
         return SimpleDateFormat("HH:mm").format(date)
     }
 
-
     private fun formatDay(day: Date): String {
         return if (SimpleDateFormat("yyyy-MM-dd").format(day) == LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
             "Today" else SimpleDateFormat("EEEE", Locale.ENGLISH).format(day)
     }
-
 
     fun getForecastsCount(): Int {
         return forecastDateWeather.size
@@ -80,14 +66,13 @@ class ForecastWeatherPresenter(context: Context, private val forecastWeatherView
                 res.addAll(it.second)
             }
         return res
-
     }
 
     private fun formatTemperature(temp: Double): String {
         return "${temp.toInt()} °C"
     }
 
-    fun typeByPos(int: Int): Int {
+    fun getTypeByPos(int: Int): Int {
         return if (forecastDateWeather[int] is DayItemData) 0 else 1
     }
 
@@ -109,11 +94,13 @@ class ForecastWeatherPresenter(context: Context, private val forecastWeatherView
         }
     }
 
+    fun onStart(){
+        coolWeatherModel
+            .getForecastUpdate()
+            .subscribe({ onForecastUpdate(it) }) { it.printStackTrace() }
+    }
 
     data class DayItemData(val day: Date)
 
     data class ForecastItemData(val dateTime: Date, val temp: Double, val descr: String, val iconId: String?)
 }
-
-
-

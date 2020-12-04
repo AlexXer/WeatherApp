@@ -1,16 +1,11 @@
-package com.alexxer.weatherapp.data.models
+package com.alexxer.weatherapp.data.model.retrofit
 
 import com.google.gson.JsonObject
 import io.reactivex.Single
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Api {
-
-
     @GET("weather")
     fun getCurrentWeather(
         @Query("lat") lat: Double,
@@ -18,7 +13,6 @@ interface Api {
         @Query("appid") apiKey: String = API_KEY,
         @Query("units") unit: String = "metric"
     ): Single<JsonObject>
-
 
     @GET("forecast")
     fun getForecastWeather(

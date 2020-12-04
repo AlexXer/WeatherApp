@@ -1,4 +1,4 @@
-package com.alexxer.weatherapp.data.models
+package com.alexxer.weatherapp.data.model
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,12 +7,8 @@ import com.google.gson.reflect.TypeToken
 import io.reactivex.Single
 
 class CachedWeatherModel(context: Context) : WeatherModel {
-
-    private val PREFS_NAME = "Weather prefs"
-
-    private var sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     private val editor = sharedPreferences.edit()
-
     private val gson: Gson = Gson()
 
     override fun getCurrentWeather(lat: Double, lon: Double): Single<Weather> {
@@ -40,5 +36,7 @@ class CachedWeatherModel(context: Context) : WeatherModel {
         editor.putString("FORECAST_WEATHER", gson.toJson(forecasts).toString()).commit()
     }
 
+    companion object {
+        private const val PREFS_NAME: String = "Weather prefs"
+    }
 }
-

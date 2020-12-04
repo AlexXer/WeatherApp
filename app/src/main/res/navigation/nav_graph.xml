@@ -6,12 +6,12 @@
     app:startDestination="@id/todayWeatherFragment">
     <fragment
         android:id="@+id/todayWeatherFragment"
-        android:name="com.alexxer.weatherapp.TodayWeatherFragment"
+        android:name="com.alexxer.weatherapp.screen.today.TodayWeatherFragment"
         android:label="@string/today"
         tools:layout="@layout/fragment_today_weather" />
     <fragment
         android:id="@+id/forecastWeatherFragment"
-        android:name="com.alexxer.weatherapp.ForecastWeatherFragment"
+        android:name="com.alexxer.weatherapp.screen.forecast.ForecastWeatherFragment"
         android:label="@string/forecast"
         tools:layout="@layout/fragment_forecast_weather" />
 </navigation>

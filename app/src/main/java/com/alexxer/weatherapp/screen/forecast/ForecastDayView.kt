@@ -1,4 +1,4 @@
-package com.alexxer.weatherapp.data.models
+package com.alexxer.weatherapp.screen.forecast
 
 interface ForecastDayView {
     fun updateDate(date:String)

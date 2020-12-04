@@ -1,4 +1,4 @@
-package com.alexxer.weatherapp.data.models
+package com.alexxer.weatherapp.data.model
 
 data class Weather(
     val country: String?,

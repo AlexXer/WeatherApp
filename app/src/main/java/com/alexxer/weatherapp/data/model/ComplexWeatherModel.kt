@@ -1,8 +1,7 @@
-package com.alexxer.weatherapp.data.models
+package com.alexxer.weatherapp.data.model
 
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class ComplexWeatherModel(
     private val cachedWeatherModel: CachedWeatherModel,
@@ -14,7 +13,6 @@ class ComplexWeatherModel(
             .onErrorResumeNext { cachedWeatherModel.getCurrentWeather(lat, lon) }
             .doOnSuccess { weather -> cachedWeatherModel.saveCurrentWeather(weather) }
             .observeOn(AndroidSchedulers.mainThread())
-//            .doOnError { cachedWeatherModel.getCurrentWeather(lat, lon) }
     }
 
     override fun getForecastWeather(lat: Double, lon: Double): Single<List<Forecast>> {
@@ -23,6 +21,5 @@ class ComplexWeatherModel(
             .doOnSuccess { forecasts -> cachedWeatherModel.saveForecastWeather(forecasts) }
             .onErrorResumeNext { cachedWeatherModel.getForecastWeather(lat, lon) }
             .observeOn(AndroidSchedulers.mainThread())
-//            .doOnError { cachedWeatherModel.getForecastWeather(lat, lon) }
     }
 }

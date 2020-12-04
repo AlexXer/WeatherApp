@@ -1,4 +1,4 @@
-package com.alexxer.weatherapp
+package com.alexxer.weatherapp.screen.today
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.alexxer.weatherapp.data.models.*
-
+import com.alexxer.weatherapp.R
 
 class TodayWeatherFragment : Fragment(), TodayWeatherView {
     private lateinit var presenter: TodayWeatherPresenter
@@ -22,6 +21,7 @@ class TodayWeatherFragment : Fragment(), TodayWeatherView {
     private lateinit var windDirectionTextView: TextView
     private lateinit var precipitationTextView: TextView
     private lateinit var locationTextView: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,9 +40,9 @@ class TodayWeatherFragment : Fragment(), TodayWeatherView {
         shareButton.setOnClickListener {
             shareWeather(presenter.requestShare())
         }
+        presenter.onStart()
         return root
     }
-
 
     override fun updateTemperatureAndWeatherTextView(temperatureAndWeather: String) {
         temperatureAndWeatherTextView.text = temperatureAndWeather
@@ -84,6 +84,4 @@ class TodayWeatherFragment : Fragment(), TodayWeatherView {
         }
         startActivity(Intent.createChooser(shareIntent, "Send weather with friends:"))
     }
-
-
 }

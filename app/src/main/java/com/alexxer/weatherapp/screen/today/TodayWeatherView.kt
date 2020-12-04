@@ -1,4 +1,4 @@
-package com.alexxer.weatherapp.data.models
+package com.alexxer.weatherapp.screen.today
 
 interface TodayWeatherView {
     fun updateTemperatureAndWeatherTextView(temperatureAndWeather: String)
@@ -9,5 +9,4 @@ interface TodayWeatherView {
     fun updateWindDirectionsTextView(windDirection: String)
     fun updateLocationTextView(location: String)
     fun updatePrecipitationTextView(precipitation: String)
-
 }

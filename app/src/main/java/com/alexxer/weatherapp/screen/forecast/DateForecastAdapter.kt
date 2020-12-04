@@ -1,4 +1,4 @@
-package com.alexxer.weatherapp
+package com.alexxer.weatherapp.screen.forecast
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,13 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.alexxer.weatherapp.data.models.ForecastDayView
-import com.alexxer.weatherapp.data.models.ForecastWeatherItemView
-import com.alexxer.weatherapp.data.models.ForecastWeatherView
+import com.alexxer.weatherapp.R
 
 class DateForecastAdapter(private val presenter: ForecastWeatherPresenter) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-
     class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), ForecastWeatherItemView {
         override fun updateTemperature(temp: String) {
             itemView.findViewById<TextView>(R.id.forecast_temperature_tv).text = temp
@@ -29,14 +25,12 @@ class DateForecastAdapter(private val presenter: ForecastWeatherPresenter) : Rec
         override fun updateImageView(iconId: Int) {
             itemView.findViewById<ImageView>(R.id.forecast_weather_iv).setImageResource(iconId)
         }
-
     }
 
     class DateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), ForecastDayView {
         override fun updateDate(date: String) {
             itemView.findViewById<TextView>(R.id.forecast_day_tv).text = date
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -55,6 +49,6 @@ class DateForecastAdapter(private val presenter: ForecastWeatherPresenter) : Rec
     }
 
     override fun getItemViewType(position: Int): Int {
-        return presenter.typeByPos(position)
+        return presenter.getTypeByPos(position)
     }
 }
