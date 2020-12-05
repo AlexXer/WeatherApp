@@ -87,7 +87,7 @@ class TodayWeatherPresenter(context: Context, private val todayWeatherView: Toda
             "10d" -> R.drawable.ic_day_rain
             "10n" -> R.drawable.ic_night_rain
             "11d", "11n" -> R.drawable.ic_thunderstorm
-            "12d", "12n" -> R.drawable.ic_snowflake
+            "13d", "13n" -> R.drawable.ic_snowflake
             "50d", "50n" -> R.drawable.ic_mist
             else -> R.mipmap.launcher_icon
         }
