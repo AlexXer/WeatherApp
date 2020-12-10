@@ -4,10 +4,12 @@ import android.content.Context
 import com.alexxer.weatherapp.App
 import com.alexxer.weatherapp.R
 import com.alexxer.weatherapp.data.model.Weather
+import io.reactivex.disposables.Disposable
 
 class TodayWeatherPresenter(context: Context, private val todayWeatherView: TodayWeatherView) {
     private var currentWeather: Weather? = null
     private val coolWeatherModel = (context.applicationContext as App).coolWeatherModel
+    private var disposable: Disposable? = null
 
     private fun onWeatherUpdate(weather: Weather?) {
         currentWeather = weather
@@ -94,8 +96,12 @@ class TodayWeatherPresenter(context: Context, private val todayWeatherView: Toda
     }
 
     fun onStart() {
-        coolWeatherModel
+        disposable = coolWeatherModel
             .getWeatherUpdate()
             .subscribe({ onWeatherUpdate(it) }) { it.printStackTrace() }
+    }
+
+    fun onDestroy(){
+        disposable?.dispose()
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import com.alexxer.weatherapp.App
 import com.alexxer.weatherapp.R
 import com.alexxer.weatherapp.data.model.Forecast
+import io.reactivex.disposables.Disposable
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -13,6 +14,8 @@ import kotlin.collections.ArrayList
 class ForecastWeatherPresenter(context: Context, private val forecastWeatherView: ForecastWeatherView) {
     private var forecastDateWeather: List<Any> = listOf()
     private val coolWeatherModel = (context.applicationContext as App).coolWeatherModel
+    private var disposable: Disposable? = null
+
 
     private fun onForecastUpdate(forecasts: List<Forecast>) {
         forecastDateWeather = formatForecasts(forecasts)
@@ -87,17 +90,19 @@ class ForecastWeatherPresenter(context: Context, private val forecastWeatherView
             "09d", "09n" -> R.drawable.ic_heavy_rain
             "10d" -> R.drawable.ic_day_rain
             "10n" -> R.drawable.ic_night_rain
-            "11d","11n" -> R.drawable.ic_thunderstorm
-            "13d","13n" -> R.drawable.ic_snowflake
-            "50d","50n" -> R.drawable.ic_mist
+            "11d", "11n" -> R.drawable.ic_thunderstorm
+            "13d", "13n" -> R.drawable.ic_snowflake
+            "50d", "50n" -> R.drawable.ic_mist
             else -> 0
         }
     }
 
-    fun onStart(){
-        coolWeatherModel
-            .getForecastUpdate()
-            .subscribe({ onForecastUpdate(it) }) { it.printStackTrace() }
+    fun onStart() {
+        disposable = coolWeatherModel.getForecastUpdate().subscribe({ onForecastUpdate(it) }) { it.printStackTrace() }
+    }
+
+    fun onDestroy() {
+        disposable?.dispose()
     }
 
     data class DayItemData(val day: Date)

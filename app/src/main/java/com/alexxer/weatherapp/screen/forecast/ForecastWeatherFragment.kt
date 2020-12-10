@@ -30,4 +30,9 @@ class ForecastWeatherFragment : Fragment(), ForecastWeatherView {
     override fun updateData() {
         adapter.notifyDataSetChanged()
     }
+
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
 }

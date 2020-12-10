@@ -44,6 +44,11 @@ class TodayWeatherFragment : Fragment(), TodayWeatherView {
         return root
     }
 
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
+
     override fun updateTemperatureAndWeatherTextView(temperatureAndWeather: String) {
         temperatureAndWeatherTextView.text = temperatureAndWeather
     }
